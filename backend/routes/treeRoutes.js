@@ -4,5 +4,7 @@ const db = require('../controllers/treeControllers');
 const router = express.Router();
 
 router.get('/', db.getAllTree);
+router.get('/:id', db.getTree);
+router.post('/', db.addTree);
 
 module.exports = router;

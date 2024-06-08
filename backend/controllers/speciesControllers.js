@@ -19,6 +19,33 @@ const getAllSpecies = (req, res) => {
   }
 };
 
+const getSpecies = (req, res) => {
+  try {
+    const result = pool.query('SELECT * FROM species WHERE id = $1', [
+      req.params.id,
+    ]);
+    res.status(200).json(result.rows);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+const addSpecies = (req, res) => {
+  try {
+    const { iucn_status, compatibilty, habitat, scientific_name, potency } =
+      req.body;
+    const result = pool.query(
+      'INSERT INTO species (iucn_status, compatibility, habitat, scientific_name, potency) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+      [iucn_status, compatibilty, habitat, scientific_name, potency]
+    );
+    res.status(201).json(result.rows);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
 module.exports = {
   getAllSpecies,
+  getSpecies,
+  addSpecies,
 };
