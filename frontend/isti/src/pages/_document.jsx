@@ -5,7 +5,11 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          {/* Add your custom head tags here */}
+          <link
+            rel="icon"
+            href="/assets/images/logo-green.png"
+            type="image/png"
+          />
           <link
             rel="stylesheet"
             href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
