@@ -7,6 +7,7 @@ const http = require('http');
 
 const speciesRoutes = require('./routes/speciesRoutes');
 const treeRoutes = require('./routes/treeRoutes');
+const articleRoutes = require('./routes/articleRoutes');
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use((req, res, next) => {
 
 app.use('/api/tree', treeRoutes);
 app.use('/api/species', speciesRoutes);
+app.use('/api/article', articleRoutes);
 
 app.listen(4000, () => {
   console.log('Server is running on port 4000');

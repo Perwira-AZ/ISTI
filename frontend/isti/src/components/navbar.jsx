@@ -24,9 +24,9 @@ function Navbar() {
         <li>
           <a href="/article">Artikel</a>
         </li>
-        <li>
+        {/* <li>
           <a href="#">Hubungi Kami</a>
-        </li>
+        </li> */}
       </ul>
     </nav>
   );

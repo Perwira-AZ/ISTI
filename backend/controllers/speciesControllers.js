@@ -1,3 +1,5 @@
+const { get } = require('http');
+
 require('dotenv').config();
 
 const Pool = require('pg').Pool;
@@ -32,13 +34,39 @@ const getSpecies = async (req, res) => {
 
 const addSpecies = async (req, res) => {
   try {
-    const { iucn_status, compatibilty, habitat, scientific_name, potency } =
+    const { iucn_status, compatibility, habitat, scientific_name, potency } =
       req.body;
     const result = await pool.query(
       'INSERT INTO species (iucn_status, compatibility, habitat, scientific_name, potency) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-      [iucn_status, compatibilty, habitat, scientific_name, potency]
+      [iucn_status, compatibility, habitat, scientific_name, potency]
     );
     res.status(201).json(result.rows);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+const searchSpecies = async (req, res) => {
+  try {
+    const { searchBy, keyword } = req.query;
+    let column;
+
+    switch (searchBy) {
+      case 'local_name':
+        column = 'local_name'; // Adjust this according to your database column names
+        break;
+      case 'scientific':
+        column = 'scientific_name'; // Adjust this according to your database column names
+        break;
+      default:
+        return res.status(400).json({ error: 'Invalid search parameter' });
+    }
+
+    const query = `SELECT * FROM species WHERE ${column} ILIKE $1`;
+    const values = [`%${keyword}%`];
+
+    const result = await pool.query(query, values);
+    res.status(200).json(result.rows);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -48,4 +76,5 @@ module.exports = {
   getAllSpecies,
   getSpecies,
   addSpecies,
+  searchSpecies,
 };
