@@ -18,7 +18,7 @@ function species() {
   async function getSpeciesByID(species_id) {
     try {
       const response = await fetch(
-        `http://localhost:4000/api/species/${species_id}`
+        `${process.env.NEXT_PUBLIC_HTTP_URL}/api/species/${species_id}`
       );
       const data = await response.json();
       return data[0];
@@ -30,7 +30,7 @@ function species() {
   async function getTree(species_id) {
     try {
       const response = await fetch(
-        `http://localhost:4000/api/tree/location/${species_id}`
+        `${process.env.NEXT_PUBLIC_HTTP_URL}/api/tree/location/${species_id}`
       );
       const data = await response.json();
       return data;
@@ -48,7 +48,6 @@ function species() {
 
         const tree_data = await getTree(id);
         setTrees(tree_data);
-        console.log(tree_data);
         setLoading(false);
       }
     }
@@ -127,7 +126,10 @@ function species() {
               </table>
             </div>
             <div className="max-w-[1200px] min-w-[1000px] h-[600px] my-8">
-              <h3 className="text-black text-2xl font-bold text-center mb-2">
+              <h3
+                className="text-black text-2xl font-bold text-center mb-2"
+                id="location"
+              >
                 Lokasi
               </h3>
               <DynamicMap

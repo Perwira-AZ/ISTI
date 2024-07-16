@@ -14,7 +14,7 @@ function Footer() {
             Yogyakarta
           </p>
         </div>
-        <div class="flex flex-col items-start gap-2">
+        <div className="flex flex-col items-start gap-2">
           <a
             href="https://instagram.com/pkmkiugm_isti"
             target="blank"

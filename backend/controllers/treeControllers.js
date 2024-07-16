@@ -26,7 +26,6 @@ const getTree = async (req, res) => {
     const result = await pool.query('SELECT * FROM "tree" WHERE id = $1', [
       req.params.id,
     ]);
-    console.log(result.rows);
     res.status(200).json(result.rows);
   } catch (err) {
     res.status(500).json(err);
@@ -36,10 +35,9 @@ const getTree = async (req, res) => {
 const getLocation = async (req, res) => {
   try {
     const result = await pool.query(
-      'SELECT long_lat FROM "tree" WHERE species_id = $1',
+      'SELECT long_lat, status FROM "tree" WHERE species_id = $1',
       [req.params.id]
     );
-    console.log(result.rows);
     res.status(200).json(result.rows);
   } catch (err) {
     res.status(500).json(err);

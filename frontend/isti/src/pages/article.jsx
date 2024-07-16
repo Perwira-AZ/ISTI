@@ -8,7 +8,9 @@ function Article() {
 
   async function getArticles() {
     try {
-      const response = await fetch(`http://localhost:4000/api/article/`);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_HTTP_URL}/api/article/`
+      );
       const data = await response.json();
       return data;
     } catch (error) {

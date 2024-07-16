@@ -14,7 +14,7 @@ function SpeciesSearch() {
       if (searchBy && keyword) {
         try {
           const response = await fetch(
-            `http://localhost:4000/api/species/search?searchBy=${searchBy}&keyword=${keyword}`
+            `${process.env.NEXT_PUBLIC_HTTP_URL}/api/species/search?searchBy=${searchBy}&keyword=${keyword}`
           );
           const data = await response.json();
           setSpecies(data);
