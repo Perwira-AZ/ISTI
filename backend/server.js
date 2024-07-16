@@ -1,10 +1,10 @@
 require('dotenv').config();
 
-const Pool = require('pg').Pool;
+const mysql = require('mysql2/promise');
 
-const pool = new Pool({
-  user: process.env.USER,
+const pool = mysql.createPool({
   host: process.env.HOST,
+  user: process.env.USER,
   database: process.env.DATABASE,
   password: process.env.PASSWORD,
   port: process.env.PORT,
@@ -56,42 +56,56 @@ app.use('/api/article', articleRoutes);
 app.post('/trigger-alert/:id', async (req, res) => {
   // Notify all connected clients
   const { id } = req.params;
-  const change_stat = await pool.query(
-    'UPDATE "tree" SET status = true WHERE id = $1',
-    [id]
-  );
-  if (change_stat) {
-    const species_id = await pool.query(
-      'SELECT species_id FROM "tree" WHERE id = $1',
+  try {
+    const [changeStat] = await pool.query(
+      'UPDATE tree SET status = true WHERE id = ?',
       [id]
     );
-    wss.clients.forEach((client) => {
-      if (client.readyState === WebSocket.OPEN) {
-        client.send(`ALERT ${species_id.rows[0].species_id}`);
-      }
-    });
-    res.sendStatus(200);
+    if (changeStat.affectedRows > 0) {
+      const [species] = await pool.query(
+        'SELECT species_id FROM tree WHERE id = ?',
+        [id]
+      );
+      const speciesId = species[0].species_id;
+      wss.clients.forEach((client) => {
+        if (client.readyState === WebSocket.OPEN) {
+          client.send(`ALERT ${speciesId}`);
+        }
+      });
+      res.sendStatus(200);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    res.status(500).json(err);
   }
 });
 
 app.post('/stop-alert/:id', async (req, res) => {
   // Notify all connected clients
   const { id } = req.params;
-  const change_stat = await pool.query(
-    'UPDATE "tree" SET status = false WHERE id = $1',
-    [id]
-  );
-  if (change_stat) {
-    const species_id = await pool.query(
-      'SELECT species_id FROM "tree" WHERE id = $1',
+  try {
+    const [changeStat] = await pool.query(
+      'UPDATE tree SET status = false WHERE id = ?',
       [id]
     );
-    wss.clients.forEach((client) => {
-      if (client.readyState === WebSocket.OPEN) {
-        client.send(`STOP ${species_id.rows[0].species_id}`);
-      }
-    });
-    res.sendStatus(200);
+    if (changeStat.affectedRows > 0) {
+      const [species] = await pool.query(
+        'SELECT species_id FROM tree WHERE id = ?',
+        [id]
+      );
+      const speciesId = species[0].species_id;
+      wss.clients.forEach((client) => {
+        if (client.readyState === WebSocket.OPEN) {
+          client.send(`STOP ${speciesId}`);
+        }
+      });
+      res.sendStatus(200);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    res.status(500).json(err);
   }
 });
 
