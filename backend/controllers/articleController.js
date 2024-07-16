@@ -1,10 +1,10 @@
 require('dotenv').config();
 
-const Pool = require('pg').Pool;
+const mysql = require('mysql2/promise');
 
-const pool = new Pool({
-  user: process.env.USER,
+const pool = mysql.createPool({
   host: process.env.HOST,
+  user: process.env.USER,
   database: process.env.DATABASE,
   password: process.env.PASSWORD,
   port: process.env.PORT,
@@ -12,8 +12,8 @@ const pool = new Pool({
 
 const getAllArticles = async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM article');
-    res.status(200).json(result.rows);
+    const [rows] = await pool.query('SELECT * FROM article');
+    res.status(200).json(rows);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -21,10 +21,10 @@ const getAllArticles = async (req, res) => {
 
 const getArticle = async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM article WHERE id = $1', [
+    const [rows] = await pool.query('SELECT * FROM article WHERE id = ?', [
       req.params.id,
     ]);
-    res.status(200).json(result.rows);
+    res.status(200).json(rows);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -32,13 +32,13 @@ const getArticle = async (req, res) => {
 
 // const addSpecies = async (req, res) => {
 //   try {
-//     const { iucn_status, compatibilty, habitat, scientific_name, potency } =
+//     const { iucn_status, compatibility, habitat, scientific_name, potency } =
 //       req.body;
-//     const result = await pool.query(
-//       'INSERT INTO species (iucn_status, compatibility, habitat, scientific_name, potency) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-//       [iucn_status, compatibilty, habitat, scientific_name, potency]
+//     const [result] = await pool.query(
+//       'INSERT INTO species (iucn_status, compatibility, habitat, scientific_name, potency) VALUES (?, ?, ?, ?, ?)',
+//       [iucn_status, compatibility, habitat, scientific_name, potency]
 //     );
-//     res.status(201).json(result.rows);
+//     res.status(201).json(result);
 //   } catch (err) {
 //     res.status(500).json(err);
 //   }
