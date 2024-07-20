@@ -8,6 +8,7 @@ const pool = mysql.createPool({
   database: process.env.DATABASE,
   password: process.env.PASSWORD,
   port: process.env.PORT,
+  connectTimeout: 10000,
 });
 
 const express = require('express');
@@ -110,5 +111,5 @@ app.post('/stop-alert/:id', async (req, res) => {
 });
 
 server.listen(8080, () => {
-  console.log('Server is running on port 4000');
+  console.log('Server is running on port 8080');
 });
