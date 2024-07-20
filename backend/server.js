@@ -25,6 +25,9 @@ const app = express();
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
+server.keepAliveTimeout = 60000;
+server.headersTimeout = 65000;
+
 wss.on('connection', (ws) => {
   console.log('Client connected');
 
