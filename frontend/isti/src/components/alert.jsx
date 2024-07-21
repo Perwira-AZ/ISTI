@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 function Alert() {
   const router = useRouter();
   useEffect(() => {
-    const ws = new WebSocket('ws://74.226.175.227:8080/');
+    const ws = new WebSocket('wss://74.226.175.227:8080/');
 
     ws.onopen = () => {
       console.log('Connected to WebSocket server');
