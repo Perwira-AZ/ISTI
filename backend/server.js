@@ -8,6 +8,7 @@ const pool = mysql.createPool({
   database: process.env.DATABASE,
   password: process.env.PASSWORD,
   port: process.env.PORT,
+  connectTimeout: 10000,
 });
 
 const express = require('express');
@@ -23,6 +24,9 @@ const articleRoutes = require('./routes/articleRoutes');
 const app = express();
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
+
+server.keepAliveTimeout = 60000;
+server.headersTimeout = 65000;
 
 wss.on('connection', (ws) => {
   console.log('Client connected');
@@ -110,5 +114,5 @@ app.post('/stop-alert/:id', async (req, res) => {
 });
 
 server.listen(8080, () => {
-  console.log('Server is running on port 4000');
+  console.log('Server is running on port 8080');
 });
