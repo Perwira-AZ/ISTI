@@ -1,14 +1,8 @@
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 
-const DynamicMap = dynamic(() => import('@/components/map'), {
-  ssr: false,
-});
-
-function readArticle() {
+function ReadArticle() {
   const router = useRouter();
   const { id } = router.query;
   const [article, setArticle] = useState(null);
@@ -17,7 +11,7 @@ function readArticle() {
   async function getArticleByID(article_id) {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_HTTP_URL}/api/article/${article_id}`
+        `http://74.226.175.227:8080/api/article/${article_id}`
       );
       const data = await response.json();
       return data[0];
@@ -94,4 +88,4 @@ function readArticle() {
   );
 }
 
-export default readArticle;
+export default ReadArticle;

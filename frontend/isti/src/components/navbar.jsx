@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import SearchComponent from './search';
 import logo from '@/../public/assets/images/logo.png';
+import Link from 'next/link';
 
 function Navbar() {
   return (
@@ -14,15 +15,15 @@ function Navbar() {
       <SearchComponent />
       <ul className="flex gap-8 font-medium text-xl ">
         <li>
-          <a
+          <Link
             // className="bg-green-600 text-white rounded-full py-1 px-2"
             href="/"
           >
             Beranda
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="/article">Artikel</a>
+          <Link href="/article">Artikel</Link>
         </li>
         {/* <li>
           <a href="#">Hubungi Kami</a>

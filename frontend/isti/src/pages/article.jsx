@@ -8,9 +8,7 @@ function Article() {
 
   async function getArticles() {
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_HTTP_URL}/api/article/`
-      );
+      const response = await fetch(`http://74.226.175.227:8080/api/article/`);
       const data = await response.json();
       return data;
     } catch (error) {

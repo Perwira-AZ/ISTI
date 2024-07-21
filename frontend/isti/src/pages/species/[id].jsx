@@ -8,7 +8,7 @@ const DynamicMap = dynamic(() => import('@/components/map'), {
   ssr: false,
 });
 
-function species() {
+function Species() {
   const router = useRouter();
   const { id } = router.query;
   const [species, setSpecies] = useState(null);
@@ -18,7 +18,7 @@ function species() {
   async function getSpeciesByID(species_id) {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_HTTP_URL}/api/species/${species_id}`
+        `http://74.226.175.227:8080/api/species/${species_id}`
       );
       const data = await response.json();
       return data[0];
@@ -30,7 +30,7 @@ function species() {
   async function getTree(species_id) {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_HTTP_URL}/api/tree/location/${species_id}`
+        `http://74.226.175.227:8080/api/tree/location/${species_id}`
       );
       const data = await response.json();
       return data;
@@ -145,4 +145,4 @@ function species() {
   );
 }
 
-export default species;
+export default Species;
