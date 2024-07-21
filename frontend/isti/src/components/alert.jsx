@@ -31,7 +31,7 @@ function Alert() {
     };
   }, []);
 
-  return <ToastContainer />;
+  return <ToastContainer autoClose={10000}/>;
 }
 
 export default Alert;
