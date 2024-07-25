@@ -20,7 +20,7 @@ function Home() {
           <div className="absolute inset-0 h-1/2 my-auto bg-black bg-opacity-60"></div>{' '}
           {/* Overlay */}
           <div className="pl-24 absolute w-full p-4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <p className="pb-4 max-w-[1280px] font-bold text-[80px]">
+            <p className="pb-4 max-w-[1280px] font-bold text-[80px] text-white">
               Kenali Pohon Langka dan Pohon Kebudayaan di Sekitarmu!
             </p>
             <SearchComponent />
