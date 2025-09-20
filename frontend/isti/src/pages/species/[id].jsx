@@ -18,7 +18,7 @@ function Species() {
   async function getSpeciesByID(species_id) {
     try {
       const response = await fetch(
-        `https://api.isti.online:8080/api/species/${species_id}`
+        `http://${process.env.NEXT_PUBLIC_HOST}:${process.env.NEXT_PUBLIC_PORT}/api/species/${species_id}`
       );
       const data = await response.json();
       return data[0];
@@ -30,7 +30,7 @@ function Species() {
   async function getTree(species_id) {
     try {
       const response = await fetch(
-        `https://api.isti.online:8080/api/tree/location/${species_id}`
+        `http://${process.env.NEXT_PUBLIC_HOST}:${process.env.NEXT_PUBLIC_PORT}/api/tree/location/${species_id}`
       );
       const data = await response.json();
       return data;

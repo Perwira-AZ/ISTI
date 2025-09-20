@@ -11,7 +11,7 @@ function ReadArticle() {
   async function getArticleByID(article_id) {
     try {
       const response = await fetch(
-        `https://api.isti.online:8080/api/article/${article_id}`
+        `http://${process.env.NEXT_PUBLIC_HOST}:${process.env.NEXT_PUBLIC_PORT}/api/article/${article_id}`
       );
       const data = await response.json();
       return data[0];

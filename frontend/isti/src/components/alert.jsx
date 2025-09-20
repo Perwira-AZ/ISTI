@@ -6,7 +6,9 @@ import 'react-toastify/dist/ReactToastify.css';
 function Alert() {
   const router = useRouter();
   useEffect(() => {
-    const ws = new WebSocket('wss://api.isti.online:8080/');
+    const ws = new WebSocket(
+      `ws://${process.env.NEXT_PUBLIC_HOST}:${process.env.NEXT_PUBLIC_PORT}/`
+    );
 
     ws.onopen = () => {
       console.log('Connected to WebSocket server');
@@ -31,7 +33,7 @@ function Alert() {
     };
   }, []);
 
-  return <ToastContainer autoClose={10000}/>;
+  return <ToastContainer autoClose={10000} />;
 }
 
 export default Alert;
