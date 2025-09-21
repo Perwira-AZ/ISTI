@@ -21,7 +21,7 @@ function Species() {
         `http://${process.env.NEXT_PUBLIC_HOST}:${process.env.NEXT_PUBLIC_PORT}/api/species/${species_id}`
       );
       const data = await response.json();
-      return data[0];
+      return data;
     } catch (error) {
       console.error('Error fetching species:', error);
     }
@@ -56,6 +56,7 @@ function Species() {
   }, [id]);
 
   return (
+    // <></>
     <>
       {loading ? (
         <>
@@ -76,7 +77,7 @@ function Species() {
               <em>{species.scientific_name}</em>
             </h1>
             <div className="flex flex-row gap-8 px-12 max-w-[1200px] items-start">
-              <CarouselComponent />
+              <CarouselComponent list={species.images} />
               <table className="table-auto text-black max-w-[650px] border-spacing-4 border-b border-slate-500">
                 <tbody>
                   <tr className="border-b">

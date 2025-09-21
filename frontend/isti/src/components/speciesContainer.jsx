@@ -6,7 +6,7 @@ function SpeciesContainer({ species }) {
       {species.length === 0 ? (
         <p className="text-center text-black">No species found.</p>
       ) : (
-        <div className="px-12 pb-12 grid grid-cols-3 justify-center justify-items-center items-center content-center gap-8 max-w-[1500px]">
+        <div className="px-12 pb-12 grid grid-cols-3 items-stretch gap-8 max-w-[1500px]">
           {species.map((item) => (
             <SpeciesCard key={item.id} species={item} />
           ))}

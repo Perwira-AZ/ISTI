@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 function SpeciesCard({ species }) {
   const router = useRouter();
@@ -9,10 +10,12 @@ function SpeciesCard({ species }) {
 
   return (
     <div className="relative flex flex-col mt-6 text-gray-700 bg-white shadow-2xl bg-clip-border rounded-xl max-w-96 border-black border-[1px]">
-      <div class="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white shadow-lg bg-clip-border rounded-xl h-96">
-        <img
-          src="https://images.unsplash.com/photo-1545308562-050974fb9ac4?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          alt="profile-picture"
+      <div className="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white shadow-lg bg-clip-border rounded-xl h-96">
+        <Image
+          src={`https://lh3.googleusercontent.com/d/${species.image}`}
+          alt={`${species.scientific_name}`}
+          fill
+          objectFit="cover"
         />
       </div>
       <div className="p-6 pb-2">
