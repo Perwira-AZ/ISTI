@@ -6,9 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 function Alert() {
   const router = useRouter();
   useEffect(() => {
-    const ws = new WebSocket(
-      `wss://${process.env.NEXT_PUBLIC_HOST}:${process.env.NEXT_PUBLIC_PORT}/`
-    );
+    const ws = new WebSocket(`wss://${process.env.NEXT_PUBLIC_HOST}/`);
 
     ws.onopen = () => {
       console.log('Connected to WebSocket server');
