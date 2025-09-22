@@ -18,7 +18,7 @@ function Species() {
   async function getSpeciesByID(species_id) {
     try {
       const response = await fetch(
-        `http://${process.env.NEXT_PUBLIC_HOST}:${process.env.NEXT_PUBLIC_PORT}/api/species/${species_id}`
+        `https://${process.env.NEXT_PUBLIC_HOST}:${process.env.NEXT_PUBLIC_PORT}/api/species/${species_id}`
       );
       const data = await response.json();
       return data;
@@ -30,7 +30,7 @@ function Species() {
   async function getTree(species_id) {
     try {
       const response = await fetch(
-        `http://${process.env.NEXT_PUBLIC_HOST}:${process.env.NEXT_PUBLIC_PORT}/api/tree/location/${species_id}`
+        `https://${process.env.NEXT_PUBLIC_HOST}:${process.env.NEXT_PUBLIC_PORT}/api/tree/location/${species_id}`
       );
       const data = await response.json();
       return data;

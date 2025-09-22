@@ -9,7 +9,7 @@ function Article() {
   async function getArticles() {
     try {
       const response = await fetch(
-        `http://${process.env.NEXT_PUBLIC_HOST}:${process.env.NEXT_PUBLIC_PORT}/api/article/`
+        `https://${process.env.NEXT_PUBLIC_HOST}:${process.env.NEXT_PUBLIC_PORT}/api/article/`
       );
       const data = await response.json();
       return data;

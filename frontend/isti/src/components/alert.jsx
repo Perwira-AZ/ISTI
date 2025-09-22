@@ -7,7 +7,7 @@ function Alert() {
   const router = useRouter();
   useEffect(() => {
     const ws = new WebSocket(
-      `ws://${process.env.NEXT_PUBLIC_HOST}:${process.env.NEXT_PUBLIC_PORT}/`
+      `wss://${process.env.NEXT_PUBLIC_HOST}:${process.env.NEXT_PUBLIC_PORT}/`
     );
 
     ws.onopen = () => {
