@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 function Navbar() {
   return (
-    <nav className="fixed w-full z-[100] bg-green-500 text-white py-1 px-4 flex justify-between items-center rounded-b-3xl">
+    <nav className="fixed w-full z-[100] bg-green-500 text-white py-2 px-4 flex justify-between items-center rounded-b-3xl">
       <logo className="flex">
         <Image src={logo} />
         <p className="w-[225px] text-lg font-bold">

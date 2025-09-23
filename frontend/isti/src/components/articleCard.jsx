@@ -1,35 +1,47 @@
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 function ArticleCard({ article }) {
   const router = useRouter();
+  const handleReadMore = () => router.push(`/article/${article.id}`);
 
-  const handleReadMore = () => {
-    router.push(`/article/${article.id}`); // Adjust the route as needed
-  };
+  const contentClamp = article.image ? 'line-clamp-6' : 'line-clamp-10';
 
   return (
-    <div className="relative flex flex-col mt-6 text-gray-700 bg-white shadow-2xl bg-clip-border rounded-xl max-w-96 border-black border-[1px]">
-      <div class="relative mx-4 mt-4 overflow-hidden text-gray-700 bg-white shadow-lg bg-clip-border rounded-xl h-40">
-        <img
-          src="https://images.unsplash.com/photo-1545308562-050974fb9ac4?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          alt="profile-picture"
-        />
-      </div>
-      <div className="p-6 pb-2">
-        <h5 className="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900 w-full max-h-[60px] truncate text-wrap">
+    <div className="relative flex h-[360px] flex-col overflow-hidden rounded-xl border border-black bg-white text-gray-700 shadow-2xl max-w-96 mt-6">
+      {/* Image (optional) */}
+      {article.image && (
+        <div className="relative mx-4 mt-4 h-40 overflow-hidden rounded-xl">
+          <Image
+            src={`https://lh3.googleusercontent.com/d/${article.image}`}
+            alt={article.title}
+            fill
+            className="object-cover"
+            priority={false}
+          />
+        </div>
+      )}
+
+      {/* Content fills remaining space */}
+      <div className="flex-1 min-h-0 px-6 py-2 overflow-hidden">
+        <h5 className="mb-1 line-clamp-2 font-sans text-xl font-semibold leading-snug text-blue-gray-900">
           {article.title}
         </h5>
-        <p className="block font-sans text-base antialiased font-light leading-relaxed text-inherit max-h-[180px] truncate text-wrap">
+        <p
+          className={`font-sans text-base font-light leading-relaxed text-gray-700 ${contentClamp}`}
+        >
           {article.content}
         </p>
       </div>
-      <div className="p-6 pt-0">
+
+      {/* Button sits at bottom with 24px gap */}
+      <div className="mt-auto px-6 pb-6">
         <button
-          className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-green-500 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
+          className="select-none rounded-lg bg-green-500 px-6 py-3 text-xs font-bold uppercase text-white shadow-md transition-all hover:shadow-lg"
           type="button"
           onClick={handleReadMore}
         >
-          Lanjut Baca
+          Baca
         </button>
       </div>
     </div>

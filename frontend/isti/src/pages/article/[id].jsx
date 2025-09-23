@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 function ReadArticle() {
   const router = useRouter();
@@ -52,7 +53,7 @@ function ReadArticle() {
       ) : (
         <>
           <Head>ISTI - article: {article.title}</Head>
-          <main className="flex items-center justify-center min-h-screen">
+          <main className="flex min-h-screen justify-center">
             <div className="pt-16 px-12 max-w-[1200px]">
               <h1 className="text-green-700 text-[60px] mt-10 text-center">
                 {article.title}
@@ -60,16 +61,18 @@ function ReadArticle() {
               <p className="mb-8 text-green-700 text-center">
                 {article.date.split('T')[0]}
               </p>
-              {/* <Image
-        className="w-full"
-        src="https://images.unsplash.com/photo-1545308562-050974fb9ac4?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        alt="hero images"
-      /> */}
-              <img
-                className="w-full max-h-[500px] object-cover"
-                src="https://images.unsplash.com/photo-1545308562-050974fb9ac4?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                alt="hero images"
-              />
+
+              {Array.isArray(article.image) && article.image.length > 0 && (
+                <div className="relative w-full h-[500px] mt-6">
+                  <Image
+                    src={`https://lh3.googleusercontent.com/d/${article.image[0]}`}
+                    alt={article.title}
+                    fill
+                    className="object-cover rounded-lg"
+                    priority
+                  />
+                </div>
+              )}
               <p className="text-black mt-6 text-justify text-xl">
                 {article.content}
               </p>

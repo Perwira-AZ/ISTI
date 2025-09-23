@@ -9,7 +9,7 @@ function Article() {
   async function getArticles() {
     try {
       const response = await fetch(
-        `https://${process.env.NEXT_PUBLIC_HOST}/api/article/`
+        `http://${process.env.NEXT_PUBLIC_HOST}/api/article/`
       );
       const data = await response.json();
       return data;
@@ -47,7 +47,7 @@ function Article() {
           </Head>
           <main className="pt-16 flex flex-col justify-center items-center min-h-screen">
             <h1 className="text-green-700 text-center text-[80px] font-bold">
-              Mau baca apa hari ini?
+              Artikel
             </h1>
             <ArticleCardContainer list={articles} />{' '}
             {/* Pass articles as prop */}
